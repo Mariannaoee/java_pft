@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ru.stqa.pft.learnjava.PointTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-06-18T07:42:20" hostname="LAPTOP-JAAEF4LI" time="0.016">
+  <properties/>
+  <testcase name="testPoint" classname="ru.stqa.pft.learnjava.PointTests" time="0.016"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
