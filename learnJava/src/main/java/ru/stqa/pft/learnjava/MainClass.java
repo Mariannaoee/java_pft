@@ -13,11 +13,7 @@ public class MainClass {
 
         System.out.println("Distance between p1 and p2 = " + distanceResult );
     }
-    public static double distance(Point b, Point a) {
 
-        return Math.sqrt((b.x -a.x) *(b.x -a.x)+(b.y -a.y) *(b.y -a.y));
-
-    }
 
 }
 
