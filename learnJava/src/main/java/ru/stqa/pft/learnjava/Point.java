@@ -2,17 +2,16 @@ package ru.stqa.pft.learnjava;
 
 public class Point {
 
-    public double x;
-    public double y;
+    public double x;//attribute
+    public double y;//attribute
 
-
-
-    public static double distance(Point b, Point a) {
-        return Math.sqrt((b.x -a.x) *(b.x -a.x)+(b.y -a.y) *(b.y -a.y));
-
+    public Point(double x1, double y1) {
+        this.x = x1;//x attribute, x1 variable like argument of function
+        this.y = y1;
     }
-
-
+    public  double distance(Point p1, Point p2) {
+        return Math.sqrt((p2.x - this.x) * (p2.x - this.x) + (p2.y - this.y) * (p2.y - this.y));
+    }
 
 }
 
