@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="ru.stqa.pft.learnjava.PointTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-06-18T10:00:34" hostname="LAPTOP-JAAEF4LI" time="0.007">
+<testsuite name="ru.stqa.pft.learnjava.PointTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-06-23T07:34:21" hostname="LAPTOP-JAAEF4LI" time="0.009">
   <properties/>
-  <testcase name="testPoint" classname="ru.stqa.pft.learnjava.PointTests" time="0.007"/>
+  <testcase name="testPoint" classname="ru.stqa.pft.learnjava.PointTests" time="0.009"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
