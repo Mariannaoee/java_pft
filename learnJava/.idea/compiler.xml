@@ -4,6 +4,8 @@
     <bytecodeTargetLevel target="1.8">
       <module name="addressbook-web-tests.main" target="11" />
       <module name="addressbook-web-tests.test" target="11" />
+      <module name="learnJava.main" target="11" />
+      <module name="learnJava.test" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>
