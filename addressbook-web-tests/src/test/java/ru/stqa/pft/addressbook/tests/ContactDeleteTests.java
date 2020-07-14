@@ -2,6 +2,8 @@ package ru.stqa.pft.addressbook.tests;
 
 import java.util.regex.Pattern;
 import java.util.concurrent.TimeUnit;
+
+import org.testng.Assert;
 import org.testng.annotations.*;
 import static org.testng.Assert.*;
 import org.openqa.selenium.*;
@@ -18,9 +20,14 @@ public class ContactDeleteTests extends  TestBase {
     if (!app.getContactHelper().isThereAContact()){
       app.getContactHelper().createContact(new ContactData("Marianna", "Estrina", "Holon", "0865567", "marianna@mail.ru" ,"test1" ),true);
     }
-    app.getContactHelper().selectContact();
+    int before = app.getContactHelper().getContactCount();
+    app.getContactHelper().selectContact(before -1 );
     app.getContactHelper().deleteSelectedContact();
     app.getContactHelper().acceptAlert();
+    app.getNavigationHelper().returnToHomePage();
+    int after = app.getContactHelper().getContactCount();
+    Assert.assertEquals(after, before - 1);
+
   }
 
 
