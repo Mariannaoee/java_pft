@@ -60,10 +60,12 @@ public class ContactHelper extends HelperBase {
     }
 
     public void initContactModification() {
+
         click(By.cssSelector("img[alt='Edit']"));
     }
 
     public void submitContactModification() {
+
         click(By.name("update"));
     }
 
@@ -89,8 +91,23 @@ public class ContactHelper extends HelperBase {
     }
 
     public int getContactCount() {
+
         return wd.findElements(By.name("selected[]")).size();
     }
 
-
+    public List<ContactData> getContactList() {
+        List<ContactData> contacts = new ArrayList<ContactData>();
+        List<WebElement> elements = wd.findElements(By.name("entry"));
+        for (WebElement element : elements) {
+            String firstname = element.getText();
+            String surname = element.getText();
+            String address = element.getText();
+            String mobile = element.getText();
+            String email = element.getText();
+            String group = element.getText();
+            ContactData contact = new ContactData(firstname, surname, address, mobile, email, group);
+            contacts.add(contact);
+        }
+        return contacts;
+    }
 }

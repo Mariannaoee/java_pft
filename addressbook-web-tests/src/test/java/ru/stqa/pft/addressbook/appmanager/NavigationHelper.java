@@ -42,20 +42,7 @@ public class NavigationHelper extends HelperBase {
                 click(By.linkText("home"));
             }
 
-    public List<ContactData> getContactList() {
-        List<ContactData> contacts = new ArrayList<ContactData>();
-        List<WebElement> elements = wd.findElements(By.cssSelector("name.entry"));
-        for (WebElement element: elements){
-            String firstname = element.getText();
-            String surname = element.getText();
-            String address = element.getText();
-            String mobile = element.getText();
-            String email =element.getText();
-            ContactData contact= new ContactData(firstname,surname,address,mobile,email, null);
-            contacts.add(contact);
-        }
-        return contacts;
-    }
+
 
 }
 
