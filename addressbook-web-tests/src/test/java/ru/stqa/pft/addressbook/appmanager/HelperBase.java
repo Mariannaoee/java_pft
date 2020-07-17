@@ -6,24 +6,25 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 
 public class HelperBase {
-    protected WebDriver wd;
+    protected WebDriver webDriver;
 
-    public HelperBase(WebDriver wd) {
-        this.wd = wd;
+    public HelperBase(WebDriver webDriver) {
+        this.webDriver = webDriver;
     }
-
+    // function that receive locator and click on it
     protected void click(By locator) {
 
-        wd.findElement(locator).click();
+        webDriver.findElement(locator).click();
     }
 
+    // function that fill text by locator (input,text box etc)
     protected void type(By locator, String text) {
         click(locator);
         if (text != null){//if text not null
-            String existingText = wd.findElement(locator).getAttribute("value");//take the value
+            String existingText = webDriver.findElement(locator).getAttribute("value");//take the value
             if (!text.equals(existingText)){
-                wd.findElement(locator).clear();
-                wd.findElement(locator).sendKeys(text);
+                webDriver.findElement(locator).clear();
+                webDriver.findElement(locator).sendKeys(text);
             }
 
         }
@@ -32,16 +33,17 @@ public class HelperBase {
 
     public boolean isAlertPresent() {
         try {
-            wd.switchTo().alert();
+            webDriver.switchTo().alert();
             return true;
         } catch (NoAlertPresentException e) {
             return false;
         }
     }
 
+    // function that check if element is present
     protected boolean isElementPresent(By locator) {
         try{
-            wd.findElement(locator);
+            webDriver.findElement(locator);
             return true;
         }catch (NoSuchElementException ex ){
             return false;
