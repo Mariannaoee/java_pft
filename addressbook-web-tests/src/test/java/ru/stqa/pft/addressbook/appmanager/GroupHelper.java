@@ -70,6 +70,11 @@ public class GroupHelper extends HelperBase {
         submitGroupModification();
         returnToGroupPage();
     }
+    public void deleteGroup(List<GroupData> before) {
+        selectGroup(before.size() - 1);
+        deleteSelectedGroups();
+        returnToGroupPage();
+    }
     public boolean isThereAGroup() {
 
         return isElementPresent(By.name("selected[]"));

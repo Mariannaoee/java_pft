@@ -67,7 +67,12 @@ public class ContactHelper extends HelperBase {
 
         click(By.name("update"));
     }
-
+    public void returnToHomePage () {
+        if (isElementPresent(By.id("maintable"))) {
+            return;
+        }
+        click(By.linkText("home"));
+    }
 
     public void createContact(ContactData contactData, boolean b) {
         goContactPage();
@@ -76,12 +81,7 @@ public class ContactHelper extends HelperBase {
 
 
     }
-    public void returnToHomePage () {
-        if (isElementPresent(By.id("maintable"))) {
-            return;
-        }
-        click(By.linkText("home"));
-    }
+
     public void modifyContact(ContactData contactForModification, int index) {
         selectContact(index);
         initContactModification();
@@ -89,7 +89,12 @@ public class ContactHelper extends HelperBase {
         submitContactModification();
         returnToHomePage();
     }
-
+    public void deleteContact(List<ContactData> before) {
+        selectContact(before.size() -1 );
+        deleteSelectedContact();
+        acceptAlert();
+        returnToHomePage();
+    }
 
 
     private void goContactPage() {
@@ -115,9 +120,6 @@ public class ContactHelper extends HelperBase {
         List<WebElement> elementsTr = webDriver.findElements(By.name("entry"));
         String surname;
         String firstname;
-        String address;
-        String mobile;
-        String email;
         int id;
 
 
@@ -131,14 +133,12 @@ public class ContactHelper extends HelperBase {
             id =Integer.parseInt (cols.get(0).findElement(By.tagName("input")).getAttribute("value"));
             surname = cols.get(1).getText();
             firstname = cols.get(2).getText();
-            address = cols.get(3).getText();
-            email = cols.get(4).getText();
-            mobile = cols.get(5).getText();
+
 
 
             // create new contact data and add to contacts list
 
-            ContactData contact = new ContactData(id, firstname, surname, address, mobile, email, null);
+            ContactData contact = new ContactData(id, firstname, surname );
             contacts.add(contact);
         }
         return contacts;

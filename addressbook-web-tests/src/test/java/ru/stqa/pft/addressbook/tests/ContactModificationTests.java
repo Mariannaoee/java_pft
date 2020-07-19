@@ -24,10 +24,11 @@ public class ContactModificationTests extends TestBase {
     public void testContactModification() {
 
         // go to contact list and choose contact that is created to edit
+        applicationManager.getContactHelper().initContactModification();
         List<ContactData> before = applicationManager.getContactHelper().getContactList();
         int index = before.size() - 1;
-        ContactData contactForModification = new ContactData(before.get(index).getId(), "Marianna", "Estrina",
-                "Holon", "0865567", "marianna@mail.ru", "test1");
+        ContactData contactForModification = new ContactData(before.get(index).getId(), "Marianna", "Estrina");
+
 
         applicationManager.getContactHelper().modifyContact(contactForModification, index);
 
