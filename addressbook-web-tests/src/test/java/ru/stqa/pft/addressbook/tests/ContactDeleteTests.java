@@ -7,7 +7,14 @@ import org.testng.annotations.*;
 import ru.stqa.pft.addressbook.model.ContactData;
 
 public class ContactDeleteTests extends  TestBase {
-
+  @BeforeMethod
+  public  void ensurePreconditions(){
+    applicationManager.getNavigationHelper().returnToHomePage();
+    if (!applicationManager.getContactHelper().isThereAContact()) {
+      applicationManager.getContactHelper().createContact(new ContactData("Marianna", "Estrina",
+              "Holon", "0865567", "marianna@mail.ru", "test1"), true);
+    }
+  }
 
   @Test
   public void testContactDelete() throws Exception {
