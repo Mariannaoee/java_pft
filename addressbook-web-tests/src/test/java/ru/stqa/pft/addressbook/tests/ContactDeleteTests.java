@@ -9,9 +9,9 @@ import ru.stqa.pft.addressbook.model.ContactData;
 public class ContactDeleteTests extends  TestBase {
   @BeforeMethod
   public  void ensurePreconditions(){
-    applicationManager.getNavigationHelper().returnToHomePage();
-    if (!applicationManager.getContactHelper().isThereAContact()) {
-      applicationManager.getContactHelper().createContact(new ContactData("Marianna", "Estrina",
+    applicationManager.goTo().homePage();
+    if (applicationManager.contact().list().size()==0) {
+      applicationManager.contact().createContact(new ContactData("Marianna", "Estrina",
               null, null, null, null), true);
     }
   }
@@ -19,10 +19,10 @@ public class ContactDeleteTests extends  TestBase {
   @Test
   public void testContactDelete() throws Exception {
 
-    List<ContactData> before = applicationManager.getContactHelper().getContactList();
+    List<ContactData> before = applicationManager.contact().list();
 
-    applicationManager.getContactHelper().deleteContact(before);
-    List<ContactData> after = applicationManager.getContactHelper().getContactList();
+    applicationManager.contact().deleteContact(before);
+    List<ContactData> after = applicationManager.contact().list();
     Assert.assertEquals(after.size(), before.size() - 1);
     before.remove(before.size() - 1);
     Assert.assertEquals(before,after);

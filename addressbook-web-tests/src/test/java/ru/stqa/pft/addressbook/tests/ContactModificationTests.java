@@ -4,7 +4,6 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
-import ru.stqa.pft.addressbook.model.GroupData;
 
 import java.util.HashSet;
 import java.util.List;
@@ -13,9 +12,9 @@ public class ContactModificationTests extends TestBase {
 
     @BeforeMethod
     public  void ensurePreconditions(){
-        applicationManager.getNavigationHelper().returnToHomePage();
-        if (!applicationManager.getContactHelper().isThereAContact()) {
-            applicationManager.getContactHelper().createContact(new ContactData("Marianna", "Estrina",
+        applicationManager.goTo().homePage();
+        if (applicationManager.contact().list().size()==0) {
+            applicationManager.contact().createContact(new ContactData("Marianna", "Estrina",
                     null, null, null, null), true);
         }
     }
@@ -24,16 +23,16 @@ public class ContactModificationTests extends TestBase {
     public void testContactModification() {
 
         // go to contact list and choose contact that is created to edit
-        applicationManager.getContactHelper().initContactModification();
-        List<ContactData> before = applicationManager.getContactHelper().getContactList();
+        applicationManager.contact().initContactModification();
+        List<ContactData> before = applicationManager.contact().list();
         int index = before.size() - 1;
         ContactData contactForModification = new ContactData(before.get(index).getId(), "Marianna", "Estrina");
 
 
-        applicationManager.getContactHelper().modifyContact(contactForModification, index);
+        applicationManager.contact().modifyContact(contactForModification, index);
 
         // get the contact list and check if no contact is added
-        List<ContactData> after = applicationManager.getContactHelper().getContactList();
+        List<ContactData> after = applicationManager.contact().list();
         Assert.assertEquals(after.size(), before.size());
 
         // remove the last contact and add the contact after modification and check if still the number of contacts is same

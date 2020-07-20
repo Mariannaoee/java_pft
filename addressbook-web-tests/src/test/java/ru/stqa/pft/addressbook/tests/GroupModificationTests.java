@@ -11,9 +11,9 @@ import java.util.List;
 public class GroupModificationTests extends TestBase {
     @BeforeMethod
     public void ensurePreconditions() {
-        applicationManager.getNavigationHelper().gotoGroupPage();
-        if (!applicationManager.getGroupHelper().isThereAGroup()) {
-            applicationManager.getGroupHelper().createGroup(new GroupData("test1", null, null));
+        applicationManager.goTo().groupPage();
+        if (applicationManager.group().list().size()==0) {
+            applicationManager.group().createGroup(new GroupData("test1", null, null));
         }
     }
 
@@ -21,13 +21,13 @@ public class GroupModificationTests extends TestBase {
     public void testGroupModification() {
 
         // go to group list and choose group that is created to edit
-        List<GroupData> before = applicationManager.getGroupHelper().getGroupList();
+        List<GroupData> before = applicationManager.group().list();
         int index = before.size() - 1;
         GroupData groupForModification = new GroupData(before.get(index).getId(), "test1", "test2", "test3");
-        applicationManager.getGroupHelper().modifyGroup(index, groupForModification);
+        applicationManager.group().modifyGroup(index, groupForModification);
 
         // get the group list and check if no group is added
-        List<GroupData> after = applicationManager.getGroupHelper().getGroupList();
+        List<GroupData> after = applicationManager.group().list();
         Assert.assertEquals(after.size(), before.size());
 
         // remove the last group and add the group after modification and check if still the number of groups is same
