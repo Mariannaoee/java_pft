@@ -16,7 +16,7 @@ public class ContactModificationTests extends TestBase {
         applicationManager.getNavigationHelper().returnToHomePage();
         if (!applicationManager.getContactHelper().isThereAContact()) {
             applicationManager.getContactHelper().createContact(new ContactData("Marianna", "Estrina",
-                    "Holon", "0865567", "marianna@mail.ru", "test1"), true);
+                    null, null, null, null), true);
         }
     }
 
