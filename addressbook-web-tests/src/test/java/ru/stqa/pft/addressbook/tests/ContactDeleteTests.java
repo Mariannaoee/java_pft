@@ -11,8 +11,7 @@ public class ContactDeleteTests extends  TestBase {
   public  void ensurePreconditions(){
     applicationManager.goTo().homePage();
     if (applicationManager.contact().list().size()==0) {
-      applicationManager.contact().createContact(new ContactData("Marianna", "Estrina",
-              null, null, null, null), true);
+      applicationManager.contact().createContact(new ContactData("Marianna", "Estrina"), true);
     }
   }
 

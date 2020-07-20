@@ -28,7 +28,7 @@ public class ContactHelper extends HelperBase {
         firstname(By.name("lastname"), contactData.getSurname());
 
         if (creation) {
-            new Select(webDriver.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+            new Select(webDriver.findElement(By.name("new_group"))).selectByIndex(1);
         } else {
             Assert.assertFalse(isElementPresent(By.name("new_group")));
         }
