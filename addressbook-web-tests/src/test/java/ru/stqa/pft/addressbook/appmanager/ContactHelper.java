@@ -56,9 +56,9 @@ public class ContactHelper extends HelperBase {
         click(By.xpath("//input[@value='Delete']"));
     }
 
-    public void initContactModification() {
+    public void initContactModification(int index) {
 
-        click(By.cssSelector("img[alt='Edit']"));
+        webDriver.findElements(By.cssSelector("img[alt='Edit']")).get(index).click();
     }
 
     public void submitContactModification() {
@@ -82,7 +82,7 @@ public class ContactHelper extends HelperBase {
 
     public void modifyContact(ContactData contactForModification, int index) {
         selectContact(index);
-        initContactModification();
+        initContactModification(index);
         fillContactForm(contactForModification,false);
         submitContactModification();
         returnToHomePage();
