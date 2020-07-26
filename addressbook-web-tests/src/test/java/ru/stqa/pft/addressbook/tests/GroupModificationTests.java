@@ -13,7 +13,7 @@ public class GroupModificationTests extends TestBase {
     public void ensurePreconditions() {
         applicationManager.goTo().groupPage();
         if (applicationManager.group().list().size()==0) {
-            applicationManager.group().createGroup(new GroupData("test1", null, null));
+            applicationManager.group().createGroup(new GroupData().withName("test1"));
         }
     }
 
@@ -23,7 +23,8 @@ public class GroupModificationTests extends TestBase {
         // go to group list and choose group that is created to edit
         List<GroupData> before = applicationManager.group().list();
         int index = before.size() - 1;
-        GroupData groupForModification = new GroupData(before.get(index).getId(), "test1", "test2", "test3");
+        GroupData groupForModification = new GroupData()
+                .withId(before.get(index).getId()).withName( "test1").withHeader("test2").withFooter("test3");
         applicationManager.group().modifyGroup(index, groupForModification);
 
         // get the group list and check if no group is added

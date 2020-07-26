@@ -52,7 +52,6 @@ public class ContactData {
                 "id='" + id + '\'' +
                 ", firstname='" + firstname + '\'' +
                 ", surname='" + surname + '\''
-
                 ;
     }
 

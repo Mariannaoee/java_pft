@@ -12,10 +12,7 @@ public class ContactModificationTests extends TestBase {
     int num  = 0;
     @BeforeMethod
     public  void ensurePreconditions(){
-        num = num + 1 ;
-        System.out.println("enter to ensurePreconditions : " + num);
         applicationManager.goTo().homePage();
-
         if (applicationManager.contact().list().size()==0) {
             applicationManager.contact().createContact(new ContactData("Marianna", "Estrina"), true);
         }
