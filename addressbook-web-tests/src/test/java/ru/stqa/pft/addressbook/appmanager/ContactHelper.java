@@ -135,9 +135,7 @@ public class ContactHelper extends HelperBase {
 
 
             // create new contact data and add to contacts list
-
-            ContactData contact = new ContactData(id, firstname, surname );
-            contacts.add(contact);
+            contacts.add(new ContactData().withId(id).withFirstname(firstname).withSurname(surname));
         }
         return contacts;
     }

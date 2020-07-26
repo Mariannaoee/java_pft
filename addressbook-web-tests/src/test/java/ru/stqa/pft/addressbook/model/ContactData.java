@@ -5,35 +5,42 @@ import java.util.Objects;
 // contact data  with all parameters
 public class ContactData {
     private int id;
-    private final String firstname;
-    private final String surname;
+    private String firstname;
+    private String surname;
     private boolean group;
 
+    public ContactData withFirstname(String firstname) {
+        this.firstname = firstname;
+        return this;
+    }
 
-    public void setId(int id) {
+    public ContactData withSurname(String surname) {
+        this.surname = surname;
+        return this;
+    }
+
+    public ContactData withGroup(boolean group) {
+        this.group = group;
+        return this;
+    }
+
+    public ContactData withId(int id) {
         this.id = id;
+        return this;
     }
 
     public int getId() {
 
         return id;
     }
+
     public boolean getGroup() {
         return group;
 
     }
 
-    public ContactData(int id, String firstname, String surname) {
+    public void setId(int id) {
         this.id = id;
-        this.firstname = firstname;
-        this.surname = surname;
-    }
-
-    public ContactData(String firstname, String surname) {
-        this.id = 0;
-        this.firstname = firstname;
-        this.surname = surname;
-
     }
 
     public String getFirstname() {

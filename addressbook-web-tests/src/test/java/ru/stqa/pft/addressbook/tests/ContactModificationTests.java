@@ -14,7 +14,7 @@ public class ContactModificationTests extends TestBase {
     public  void ensurePreconditions(){
         applicationManager.goTo().homePage();
         if (applicationManager.contact().list().size()==0) {
-            applicationManager.contact().createContact(new ContactData("Marianna", "Estrina"), true);
+            applicationManager.contact().createContact(new ContactData().withFirstname("Marianna").withSurname("Estrina"), true);
         }
     }
 
@@ -25,7 +25,8 @@ public class ContactModificationTests extends TestBase {
 //        applicationManager.contact().initContactModification();
         List<ContactData> before = applicationManager.contact().list();
         int index = before.size() - 1;
-        ContactData contactForModification = new ContactData(before.get(index).getId(), "Marianna", "Estrina");
+        ContactData contactForModification = new ContactData()
+                .withId(before.get(index).getId()).withFirstname("Marianna").withSurname("Estrina");
         applicationManager.contact().modifyContact(contactForModification, index);
 
         // get the contact list and check if no contact is added
