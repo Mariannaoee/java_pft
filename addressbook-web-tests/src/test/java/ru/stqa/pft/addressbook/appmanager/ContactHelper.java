@@ -89,11 +89,15 @@ public class ContactHelper extends HelperBase {
         submitContactModification();
         returnToHomePage();
     }
-    public void deleteContact(List<ContactData> before) {
-        selectContact(before.size() -1 );
+    public void deleteContact(ContactData contact ) {
+        selectContactById(contact.getId());
         deleteSelectedContact();
         acceptAlert();
         returnToHomePage();
+    }
+
+    private void selectContactById(int id) {
+        webDriver.findElement(By.cssSelector("input[value = '" + id + "']")).click();
     }
 
 
