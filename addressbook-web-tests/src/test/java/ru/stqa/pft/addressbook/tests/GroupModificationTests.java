@@ -7,12 +7,13 @@ import ru.stqa.pft.addressbook.model.GroupData;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class GroupModificationTests extends TestBase {
     @BeforeMethod
     public void ensurePreconditions() {
         applicationManager.goTo().groupPage();
-        if (applicationManager.group().list().size()==0) {
+        if (applicationManager.group().all().size()==0) {
             applicationManager.group().createGroup(new GroupData().withName("test1"));
         }
     }
@@ -21,18 +22,18 @@ public class GroupModificationTests extends TestBase {
     public void testGroupModification() {
 
         // go to group list and choose group that is created to edit
-        List<GroupData> before = applicationManager.group().list();
-        int index = before.size() - 1;
+        Set<GroupData> before = applicationManager.group().all();
+        GroupData modifiedGroup = before.iterator().next();
         GroupData groupForModification = new GroupData()
-                .withId(before.get(index).getId()).withName( "test1").withHeader("test2").withFooter("test3");
-        applicationManager.group().modifyGroup(index, groupForModification);
+                .withId(modifiedGroup.getId()).withName( "test1").withHeader("test2").withFooter("test3");
+        applicationManager.group().modifyGroup( groupForModification);
 
         // get the group list and check if no group is added
-        List<GroupData> after = applicationManager.group().list();
+        Set<GroupData> after = applicationManager.group().all();
         Assert.assertEquals(after.size(), before.size());
 
         // remove the last group and add the group after modification and check if still the number of groups is same
-        before.remove(index);
+        before.remove(modifiedGroup);
         before.add(groupForModification);
         Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
     }
