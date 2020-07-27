@@ -67,7 +67,8 @@ public class ContactHelper extends HelperBase {
 
         click(By.name("update"));
     }
-    public void returnToHomePage () {
+
+    public void returnToHomePage() {
         if (isElementPresent(By.id("maintable"))) {
             return;
         }
@@ -78,21 +79,24 @@ public class ContactHelper extends HelperBase {
         goContactPage();
         fillContactForm(contactData, b);
         submitContactCreation();
-
-
+        contactCache = null;
+        
     }
 
     public void modifyContact(ContactData contactForModification, int index) {
         selectContact(index);
         initContactModification(index);
-        fillContactForm(contactForModification,false);
+        fillContactForm(contactForModification, false);
         submitContactModification();
+        contactCache = null;
         returnToHomePage();
     }
-    public void deleteContact(ContactData contact ) {
+
+    public void deleteContact(ContactData contact) {
         selectContactById(contact.getId());
         deleteSelectedContact();
         acceptAlert();
+        contactCache = null;
         returnToHomePage();
     }
 
@@ -117,14 +121,17 @@ public class ContactHelper extends HelperBase {
         return webDriver.findElements(By.name("selected[]")).size();
     }
 
-    public Contacts list() {
+    private Contacts contactCache = null;
 
-        Contacts contacts = new Contacts();
+    public Contacts list() {
+        if (contactCache != null) {
+            return new Contacts(contactCache);
+        }
+        contactCache = new Contacts();
         List<WebElement> elementsTr = webDriver.findElements(By.name("entry"));
         String surname;
         String firstname;
         int id;
-
 
         for (int i = 0; i < elementsTr.size(); i++) {
 
@@ -133,15 +140,13 @@ public class ContactHelper extends HelperBase {
 
             // get all td for specific tr
             List<WebElement> cols = elementTr.findElements(By.tagName("td"));
-            id =Integer.parseInt (cols.get(0).findElement(By.tagName("input")).getAttribute("value"));
+            id = Integer.parseInt(cols.get(0).findElement(By.tagName("input")).getAttribute("value"));
             surname = cols.get(1).getText();
             firstname = cols.get(2).getText();
 
-
-
             // create new contact data and add to contacts list
-            contacts.add(new ContactData().withId(id).withFirstname(firstname).withSurname(surname));
+            contactCache.add(new ContactData().withId(id).withFirstname(firstname).withSurname(surname));
         }
-        return contacts;
+        return new Contacts(contactCache);
     }
 }
