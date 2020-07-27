@@ -1,13 +1,20 @@
 package ru.stqa.pft.addressbook.tests;
 
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.MatcherAssert;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.GroupData;
+import ru.stqa.pft.addressbook.model.Groups;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.testng.Assert.assertEquals;
 
 public class GroupModificationTests extends TestBase {
     @BeforeMethod
@@ -22,20 +29,16 @@ public class GroupModificationTests extends TestBase {
     public void testGroupModification() {
 
         // go to group list and choose group that is created to edit
-        Set<GroupData> before = applicationManager.group().all();
+        Groups before = applicationManager.group().all();
         GroupData modifiedGroup = before.iterator().next();
         GroupData groupForModification = new GroupData()
                 .withId(modifiedGroup.getId()).withName( "test1").withHeader("test2").withFooter("test3");
         applicationManager.group().modifyGroup( groupForModification);
 
         // get the group list and check if no group is added
-        Set<GroupData> after = applicationManager.group().all();
-        Assert.assertEquals(after.size(), before.size());
-
-        // remove the last group and add the group after modification and check if still the number of groups is same
-        before.remove(modifiedGroup);
-        before.add(groupForModification);
-        Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
+        Groups after = applicationManager.group().all();
+        assertEquals(after.size(), before.size());
+        assertThat(after, equalTo(before.without(modifiedGroup).withAdded(groupForModification)));
     }
 
 

@@ -1,13 +1,20 @@
 package ru.stqa.pft.addressbook.tests;
 
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.MatcherAssert;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.GroupData;
+import ru.stqa.pft.addressbook.model.Groups;
 
 import java.util.List;
 import java.util.Set;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.testng.Assert.assertEquals;
 
 public class GroupDeletionTests extends TestBase {
     private WebDriver wd;
@@ -22,14 +29,13 @@ public class GroupDeletionTests extends TestBase {
     @Test
     public void testGroupDeletion() throws Exception {
 
-        Set<GroupData> before = applicationManager.group().all();
+        Groups before = applicationManager.group().all();
         GroupData deletedGroup = before.iterator().next();
         applicationManager.group().deleteGroup(deletedGroup);
-        Set<GroupData> after = applicationManager.group().all();
-        Assert.assertEquals(after.size(), before.size() - 1);
-
-        before.remove(deletedGroup);
-        Assert.assertEquals(before,after);
+        Groups after = applicationManager.group().all();
+        assertEquals(after.size(), before.size() - 1);
+        assertThat(after, equalTo(before.without(deletedGroup)));
+       
     }
 
 
