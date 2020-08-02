@@ -36,8 +36,8 @@ public class GroupModificationTests extends TestBase {
         applicationManager.group().modifyGroup( groupForModification);
 
         // get the group list and check if no group is added
+        assertThat(applicationManager.group().count(), equalTo (before.size() ));
         Groups after = applicationManager.group().all();
-        assertEquals(after.size(), before.size());
         assertThat(after, equalTo(before.without(modifiedGroup).withAdded(groupForModification)));
     }
 

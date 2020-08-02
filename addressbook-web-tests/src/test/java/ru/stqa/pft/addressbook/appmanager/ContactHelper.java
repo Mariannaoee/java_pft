@@ -80,7 +80,7 @@ public class ContactHelper extends HelperBase {
         fillContactForm(contactData, b);
         submitContactCreation();
         contactCache = null;
-        
+
     }
 
     public void modifyContact(ContactData contactForModification, int index) {
