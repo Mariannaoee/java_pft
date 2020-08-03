@@ -10,7 +10,9 @@ import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.Groups;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 //
 public class ContactHelper extends HelperBase {
@@ -140,16 +142,32 @@ public class ContactHelper extends HelperBase {
             WebElement elementTr = elementsTr.get(i);
 
             // get all td for specific tr
-            List<WebElement> cols = elementTr.findElements(By.tagName("td"));
-            id = Integer.parseInt(cols.get(0).findElement(By.tagName("input")).getAttribute("value"));
-            surname = cols.get(1).getText();
-            firstname = cols.get(2).getText();
+            List<WebElement> cells = elementTr.findElements(By.tagName("td"));
+            id = Integer.parseInt(cells.get(0).findElement(By.tagName("input")).getAttribute("value"));
+            surname = cells.get(1).getText();
+            firstname = cells.get(2).getText();
+            String[] phones = cells.get(5).getText().split("\n");
 
             // create new contact data and add to contacts list
-            contactCache.add(new ContactData().withId(id).withFirstname(firstname).withSurname(surname));
+            contactCache.add(new ContactData().withId(id).withFirstname(firstname).withSurname(surname)
+                    .withHomePhone(phones[0]).withMobilePhone(phones[1]).withWorkPhone(phones[2]));
         }
         return new Contacts(contactCache);
     }
+ /*   public Set<ContactData> all() {
+        Set<ContactData> contacts = new HashSet<ContactData>();
+        List<WebElement> rows = webDriver.findElements(By.name("entry"));
+        for (WebElement row : rows) {
+            List<WebElement> cells = row.findElements(By.tagName("td"));
+            int id = Integer.parseInt(cells.get(0).findElement(By.tagName("input")).getAttribute("value"));
+            String lastname = cells.get(1).getText();
+            String firstname = cells.get(2).getText();
+            String[] phones = cells.get(5).getText().split("\n");
+            contacts.add(new ContactData().withId(id).withFirstname(firstname).withSurname(lastname)
+                    .withHomePhone(phones[0]).withMobilePhone(phones[1]).withWorkPhone(phones[2]));
+        }
+return contacts;
+    }*/
 
     public ContactData infoFromEditForm(ContactData contact) {
         initContactModificationById(contact.getId());
@@ -159,7 +177,7 @@ public class ContactHelper extends HelperBase {
         String mobile = webDriver.findElement(By.name("mobile")).getAttribute("value");
         String work = webDriver.findElement(By.name("work")).getAttribute("value");
         webDriver.navigate().back();
-        return  new ContactData().withId(contact.getId()).withFirstname(firstname)
+        return new ContactData().withId(contact.getId()).withFirstname(firstname)
                 .withSurname(lastname).withHomePhone(home).withMobilePhone(mobile).withWorkPhone(work);
 
     }

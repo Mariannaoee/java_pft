@@ -124,6 +124,7 @@ public class ContactData {
     }
 
     public boolean isGroup() {
+
         return group;
     }
 

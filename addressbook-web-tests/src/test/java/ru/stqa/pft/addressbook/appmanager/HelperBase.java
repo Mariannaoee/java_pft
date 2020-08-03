@@ -11,6 +11,7 @@ public class HelperBase {
     protected WebDriver webDriver;
 
     public HelperBase(WebDriver webDriver) {
+
         this.webDriver = webDriver;
     }
 
