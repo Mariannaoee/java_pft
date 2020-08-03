@@ -10,6 +10,37 @@ public class ContactData {
     private String surname;
     private boolean group;
     private File photo;
+    private String homePhone;
+    private String mobilePhone;
+    private String workPhone;
+
+    public String getHomePhone() {
+        return homePhone;
+    }
+
+    public ContactData withHomePhone(String homePhone) {
+        this.homePhone = homePhone;
+        return this;
+    }
+
+    public String getMobilePhone() {
+        return mobilePhone;
+    }
+
+    public ContactData withMobilePhone(String mobilePhone) {
+        this.mobilePhone = mobilePhone;
+        return this;
+    }
+
+    public String getWorkPhone() {
+        return workPhone;
+    }
+
+    public ContactData withWorkPhone(String workPhone) {
+        this.workPhone = workPhone;
+        return this;
+    }
+
 
     public File getPhoto() {
         return photo;
@@ -51,6 +82,7 @@ public class ContactData {
     }
 
     public void setId(int id) {
+
         this.id = id;
     }
 
@@ -63,6 +95,7 @@ public class ContactData {
 
         return surname;
     }
+
 
     @Override
     public String toString() {
@@ -93,4 +126,6 @@ public class ContactData {
     public boolean isGroup() {
         return group;
     }
+
+
 }

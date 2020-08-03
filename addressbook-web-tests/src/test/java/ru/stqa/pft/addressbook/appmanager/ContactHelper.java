@@ -28,7 +28,7 @@ public class ContactHelper extends HelperBase {
     public void fillContactForm(ContactData contactData, boolean creation) {
         type(By.name("firstname"), contactData.getFirstname());
         type(By.name("lastname"), contactData.getSurname());
-        attach(By.name("photo"),contactData.getPhoto());
+        attach(By.name("photo"), contactData.getPhoto());
 
         if (creation) {
             new Select(webDriver.findElement(By.name("new_group"))).selectByIndex(1);
@@ -149,5 +149,29 @@ public class ContactHelper extends HelperBase {
             contactCache.add(new ContactData().withId(id).withFirstname(firstname).withSurname(surname));
         }
         return new Contacts(contactCache);
+    }
+
+    public ContactData infoFromEditForm(ContactData contact) {
+        initContactModificationById(contact.getId());
+        String firstname = webDriver.findElement(By.name("firstname")).getAttribute("value");
+        String lastname = webDriver.findElement(By.name("lastname")).getAttribute("value");
+        String home = webDriver.findElement(By.name("home")).getAttribute("value");
+        String mobile = webDriver.findElement(By.name("mobile")).getAttribute("value");
+        String work = webDriver.findElement(By.name("work")).getAttribute("value");
+        webDriver.navigate().back();
+        return  new ContactData().withId(contact.getId()).withFirstname(firstname)
+                .withSurname(lastname).withHomePhone(home).withMobilePhone(mobile).withWorkPhone(work);
+
+    }
+
+    private void initContactModificationById(int id) {
+        WebElement checkbox = webDriver.findElement(By.cssSelector(String.format("input[value='%s']", id)));// find checkbox
+        WebElement row = checkbox.findElement(By.xpath("./../.."));//find row
+        List<WebElement> cells = row.findElements(By.tagName("td"));//take list of columns
+        cells.get(7).findElement(By.tagName("a")).click();//take the 8th column (edit column).. numeration starts from 0
+
+        // webDriver.findElement(By.xpath(String.format("//input[@value='%s']/../../td[8]/a", id))).click();
+        // webDriver.findElement(By.xpath(String.format("//tr[.//input[@value='%s']]/td[8]/a", id))).click();
+        // webDriver.findElement(By.cssSelector(String.format("a[href='edit.php?id=%s']", id))).click();
     }
 }
